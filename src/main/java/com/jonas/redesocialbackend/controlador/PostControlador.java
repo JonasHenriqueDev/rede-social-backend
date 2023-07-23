@@ -1,7 +1,6 @@
 package com.jonas.redesocialbackend.controlador;
 
 import com.jonas.redesocialbackend.dominio.Post;
-import com.jonas.redesocialbackend.dominio.Usuario;
 import com.jonas.redesocialbackend.servico.PostServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
