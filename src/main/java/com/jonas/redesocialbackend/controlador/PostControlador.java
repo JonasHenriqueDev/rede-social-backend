@@ -1,8 +1,8 @@
 package com.jonas.redesocialbackend.controlador;
 
-
+import com.jonas.redesocialbackend.dominio.Post;
 import com.jonas.redesocialbackend.dominio.Usuario;
-import com.jonas.redesocialbackend.servico.UsuarioServico;
+import com.jonas.redesocialbackend.servico.PostServico;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,29 +11,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuario")
-
+@RequestMapping("/api/post")
 
 @RequiredArgsConstructor
-public class UsuarioControlador {
+public class PostControlador {
 
-    private final UsuarioServico usuarioServico;
+    private final PostServico postServico;
 
     @GetMapping
-    public List<Usuario> listar() {
-        return usuarioServico.findAll();
+    public List<Post> listar() {
+        return postServico.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> listarPorId(@PathVariable("id") Long id) {
-        Usuario entity = usuarioServico.findUsuarioById(id);
+    public ResponseEntity<Post> listarPorId(@PathVariable("id") Long id) {
+        Post entity = postServico.findPostById(id);
         return ResponseEntity.ok(entity);
     }
 
     //Temporário
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario adicionar(@RequestBody Usuario usuario) {
-        return usuarioServico.salvarUsuario(usuario);
+    public Post adicionar(@RequestBody Post post) {
+        return postServico.salvarPost(post);
     }
 }

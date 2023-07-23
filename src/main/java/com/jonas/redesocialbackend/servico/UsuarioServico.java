@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +17,11 @@ public class UsuarioServico {
         return usuarioRepositorio.findAll();
     }
 
-    public Usuario findUsuarioById(UUID id) {
+    public Usuario findUsuarioById(Long id) {
         return usuarioRepositorio.findById(id).get();
     }
 
     public Usuario salvarUsuario(Usuario usuario){
         return usuarioRepositorio.save(usuario);
     }
-
 }
