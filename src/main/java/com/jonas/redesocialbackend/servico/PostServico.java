@@ -1,7 +1,6 @@
 package com.jonas.redesocialbackend.servico;
 
 import com.jonas.redesocialbackend.dominio.Post;
-import com.jonas.redesocialbackend.dominio.Usuario;
 import com.jonas.redesocialbackend.repositorio.PostRepositorio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
