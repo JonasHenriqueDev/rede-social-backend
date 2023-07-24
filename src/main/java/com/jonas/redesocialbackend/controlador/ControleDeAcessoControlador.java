@@ -3,6 +3,8 @@ package com.jonas.redesocialbackend.controlador;
 import com.jonas.redesocialbackend.dominio.Usuario;
 import com.jonas.redesocialbackend.dominio.dto.AuthDTO;
 import com.jonas.redesocialbackend.dominio.dto.CadastroDTO;
+import com.jonas.redesocialbackend.dominio.dto.LoginRespostaDTO;
+import com.jonas.redesocialbackend.servico.TokenServico;
 import com.jonas.redesocialbackend.servico.UsuarioServico;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class ControleDeAcesso {
+public class ControleDeAcessoControlador {
 
     private final AuthenticationManager authenticationManager;
     private final UsuarioServico usuarioServico;
+    private final TokenServico tokenServico;
+
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthDTO login) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(login.login(), login.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenServico.gerarToken((Usuario) auth.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginRespostaDTO(token));
     }
 
     @PostMapping("/cadastro")
@@ -37,7 +42,7 @@ public class ControleDeAcesso {
             return ResponseEntity.badRequest().build();
 
         String senhaCodificada = new BCryptPasswordEncoder().encode(login.password());
-        Usuario novoUsuario = new Usuario(login.login(), senhaCodificada, login.cargo());
+        Usuario novoUsuario = new Usuario(login.login(), login.email(), senhaCodificada, login.cargo());
 
         this.usuarioServico.salvarUsuario(novoUsuario);
 

@@ -29,17 +29,18 @@ public class Usuario implements UserDetails {
 
     private String password;
 
-    private CargoUsuario cargoUsuario;
+    private CargoUsuario role;
 
-    public Usuario(String login, String password, CargoUsuario cargoUsuario) {
+    public Usuario(String login, String email, String password, CargoUsuario cargoUsuario) {
         this.login = login;
+        this.email = email;
         this.password = password;
-        this.cargoUsuario = cargoUsuario;
+        this.role = cargoUsuario;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.cargoUsuario == CargoUsuario.ADMIN)
+        if (this.role == CargoUsuario.ADMIN)
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
