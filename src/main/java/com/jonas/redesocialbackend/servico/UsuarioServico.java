@@ -1,5 +1,6 @@
 package com.jonas.redesocialbackend.servico;
 
+import com.jonas.redesocialbackend.dominio.Post;
 import com.jonas.redesocialbackend.dominio.Usuario;
 import com.jonas.redesocialbackend.repositorio.UsuarioRepositorio;
 import lombok.RequiredArgsConstructor;
@@ -36,4 +37,5 @@ public class UsuarioServico implements UserDetailsService {
     public UserDetails findByLogin(String login) {
         return usuarioRepositorio.findByLogin(login);
     }
+
 }

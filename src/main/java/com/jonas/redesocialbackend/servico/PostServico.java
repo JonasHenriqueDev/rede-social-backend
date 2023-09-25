@@ -24,4 +24,8 @@ public class PostServico {
     public Post salvarPost(Post post) {
         return postRepositorio.save(post);
     }
+
+    public List<Post> findPostsById(Long id) {
+        return postRepositorio.findPostsByUsuario(id);
+    }
 }
